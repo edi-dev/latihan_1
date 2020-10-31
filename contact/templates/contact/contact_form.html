@@ -1,0 +1,79 @@
+{% extends 'blog/snippets/base.html' %}
+
+{% load widget_tweaks %}
+
+{% block page_header %}
+<a href="{% url 'Contact:kontakForm' %}">Class Form</a> | <a href="{% url 'Contact:add-contact' %}">Model Form</a>
+{% endblock %}
+
+{% block pagebody %}
+<h1>Membuat Form Dengan {{ formulir }}</h1>
+<div class="row tm-row tm-mb-120">
+    <div class="col-lg-7 tm-contact-left">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in kontak_saya %}
+            <div class="form-group row mb-4">
+                <label for="{{ field.auto_id }}" class="col-sm-3 col-form-label text-right tm-color-primary">
+                    {{ field.label }}
+                </label>
+                <div class="form-row col-sm-9">
+                    {{ field | add_class:"form-control mr-0 ml-auto" }}
+                    <div class="form-row col-sm-9">
+                        {{ field.help_text }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="form-group row text-right">
+                <div class="col-12">
+                    <button class="tm-btn tm-btn-primary tm-btn-small">Submit</button>                        
+                </div>                            
+            </div>
+        </form>
+    </div>
+
+    <div class="col-lg-5 tm-contact-right">
+        <address class="mb-4 tm-color-gray">
+            120 Lorem ipsum dolor sit amet,
+            consectetur adipiscing 10550
+        </address>
+        <span class="d-block">
+            Tel:
+            <a href="tel:060-070-0980" class="tm-color-gray">060-070-0980</a>
+        </span>
+        <span class="mb-4 d-block">
+            Email:
+            <a href="mailto:info@company.com" class="tm-color-gray">info@company.com</a>
+        </span>
+        <p class="mb-5 tm-line-height-short">
+            Maecenas eu mi eu dui cursus
+            consequat non eu metus. Morbi ac
+            turpis eleifend, commodo purus
+            eget, commodo mauris.
+        </p>
+        <ul class="tm-social-links">
+            <li class="mb-2">
+                <a href="https://facebook.com" class="d-flex align-items-center justify-content-center">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </li>
+            <li class="mb-2">
+                <a href="https://twitter.com" class="d-flex align-items-center justify-content-center">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </li>
+            <li class="mb-2">
+                <a href="https://youtube.com" class="d-flex align-items-center justify-content-center">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </li>
+            <li class="mb-2">
+                <a href="https://instagram.com" class="d-flex align-items-center justify-content-center mr-0">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

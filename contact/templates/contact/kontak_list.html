@@ -1,0 +1,35 @@
+{% extends 'blog/snippets/base.html' %}
+
+{% block page_header %}
+<a href="{% url 'Contact:kontakForm' %}">Class Form</a> | <a href="{% url 'Contact:add-contact' %}">Model Form</a>
+{% if messages %}
+    {% for message in messages %}
+    <span class="text-succes">{{ message }}</span>
+    {% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block pagebody %}
+<div class="row tm-row">
+    {% for k in object_list %}
+    <article class="col-12 col-md-6 tm-post">
+        <hr class="tm-hr-primary">
+        <a href="#" class="effect-lily tm-post-link tm-pt-60">
+            <h2 class="tm-pt-30 tm-color-primary tm-post-title">Nama :{{ k.nama_lengkap }}</h2>
+        </a>                    
+        <p class="tm-pt-30">
+            Alamat : {{ k.alamat }}
+        </p>
+        <div class="d-flex justify-content-between tm-pt-45">
+            <span class="tm-color-primary">Jenis Kelamin</span>
+            <span class="tm-color-primary">{{ k.jenis_kelamin}}</span>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+            <span>Tanggal Lahir</span>
+            <span>{{ k.tanggal_lahir }}</span>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% endblock %}
