@@ -1,0 +1,73 @@
+{% extends 'blog/snippets/base.html' %}
+
+{% block pagetitle %}
+<title>Edi Kartono | Artikel List</title>
+<meta name="description" content="Belajar web framework django di informatikawan">
+{% endblock %}
+
+{% block pagebody %}
+<div class="row tm-row">
+{% for post in object_list %}
+<article class="col-12 col-md-6 tm-post">
+    <hr class="tm-hr-primary">
+    <a href="{% url 'singleview' cat=post.post_cat_id detailview=post.slug %}" class="effect-lily tm-post-link tm-pt-60">
+        {% if post.gambar %}
+        <div class="tm-post-link-inner">
+            <img src="{{ post.gambar.url }}" alt="{{ post.judul }}" class="img-fluid">                            
+        </div>
+        {% endif %}
+        <span class="position-absolute tm-new-badge">New</span>
+        <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{ post.judul }}</h2>
+    </a>                    
+    <p class="tm-pt-30">
+        {{ post.summary }}
+    </p>
+    <div class="d-flex justify-content-between tm-pt-45">
+        <span class="tm-color-primary">{{ post.post_cat }}</span>
+        <span class="tm-color-primary">{{ post.date_create }}</span>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+        <span>36 comments</span>
+        <span>by Admin Nat</span>
+    </div>
+</article>
+{% endfor %}
+</div>
+
+{% if is_paginated %}
+<div class="row tm-row tm-mt-100 tm-mb-75">
+    <div class="tm-prev-next-wrapper">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="mb-2 tm-btn tm-btn-primary tm-prev-next tm-mr-20">Prev</a>
+        {% else %}
+        <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next disabled tm-mr-20">Prev</a>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a>
+        {% else %}
+        <a href="#" class="mb-2 tm-btn tm-btn-primary disabled tm-prev-next">Next</a>
+        {% endif %}
+    </div>
+    <div class="tm-paging-wrapper">
+        <span class="d-inline-block mr-3">Page</span>
+        <nav class="tm-paging-nav d-inline-block">
+            <ul>
+                {% for p in paginator.page_range %}
+                {% if page_obj.number == p %}
+                <li class="tm-paging-item active">
+                    <a href="#" class="mb-2 tm-btn tm-paging-link">{{ p }}</a>
+                </li>
+                {% else %}
+                <li class="tm-paging-item">
+                    <a href="?page={{ p }}" class="mb-2 tm-btn tm-paging-link">{{ p }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>                
+</div>
+{% endif %}
+{% endblock %}
